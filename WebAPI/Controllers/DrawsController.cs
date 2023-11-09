@@ -1,5 +1,6 @@
 using Application.Features.Draws.Commands.Create;
 using Application.Features.Draws.Commands.Delete;
+using Application.Features.Draws.Commands.PickAllDraws;
 using Application.Features.Draws.Commands.Update;
 using Application.Features.Draws.Queries.GetById;
 using Application.Features.Draws.Queries.GetList;
@@ -19,6 +20,13 @@ public class DrawsController : BaseController
         CreatedDrawResponse response = await Mediator.Send(createDrawCommand);
 
         return Created(uri: "", response);
+    }
+    [HttpPost("pickAll")]
+    public async Task<IActionResult> PickAllDraws([FromBody] PickAllDrawsCommand pickAllDrawsCommand)
+    {
+        GetListResponse<CreatedDrawAllResponse> response = await Mediator.Send(pickAllDrawsCommand);
+
+        return Ok(response);
     }
 
     [HttpPut]
