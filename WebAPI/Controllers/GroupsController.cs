@@ -1,4 +1,5 @@
 using Application.Features.Groups.Commands.Create;
+using Application.Features.Groups.Commands.CreateGroups;
 using Application.Features.Groups.Commands.Delete;
 using Application.Features.Groups.Commands.Update;
 using Application.Features.Groups.Queries.GetById;
@@ -19,6 +20,14 @@ public class GroupsController : BaseController
         CreatedGroupResponse response = await Mediator.Send(createGroupCommand);
 
         return Created(uri: "", response);
+    }
+
+    [HttpPost("CreateGroups")]
+    public async Task<IActionResult> CreateGroups([FromBody] CreateGroupsCommand createGroupsCommand)
+    {
+        GetListResponse<CreatedGroupsResponse> response = await Mediator.Send(createGroupsCommand);
+
+        return Ok(response);
     }
 
     [HttpPut]
