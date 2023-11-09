@@ -7,6 +7,7 @@ using AutoMapper;
 using Core.Application.Responses;
 using Domain.Entities;
 using Core.Persistence.Paging;
+using Application.Features.Teams.Queries.GetAllSeparatedByGroupId;
 
 namespace Application.Features.Teams.Profiles;
 
@@ -23,5 +24,12 @@ public class MappingProfiles : Profile
         CreateMap<Team, GetByIdTeamResponse>().ReverseMap();
         CreateMap<Team, GetListTeamListItemDto>().ReverseMap();
         CreateMap<IPaginate<Team>, GetListResponse<GetListTeamListItemDto>>().ReverseMap();
+
+
+
+        CreateMap<Team, GetAllSeparatedByGroupIdDto>().ReverseMap();
+        CreateMap<IPaginate<Team>, GetListResponse<GetAllSeparatedByGroupIdDto>>().ReverseMap();
+
+
     }
 }
