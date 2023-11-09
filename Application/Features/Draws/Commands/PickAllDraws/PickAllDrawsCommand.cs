@@ -46,33 +46,39 @@ namespace Application.Features.Draws.Commands.PickAllDraws
 
                 bool isTeamSelected;
                 Random random = new();
-                foreach (var group in groups.Items)
+                for (int i = 0; i < (teams.Count/groups.Count); i++)
                 {
-                    isTeamSelected = false;
-                    var counter = 0;
-                    while (!isTeamSelected)
+                    foreach (var group in groups.Items)
                     {
-                        var teamToSelect = teams.Items[random.Next(11)];
-
-                        var isSelectedTeamUniqueInSelectedGroup =  await _teamsService.GetAsync(predicate: p => p.GroupId == group.Id && p.CountryId == teamToSelect.CountryId);
-                        if (isSelectedTeamUniqueInSelectedGroup == null)
+                        isTeamSelected = false;
+                        var counter = 0;
+                        while (!isTeamSelected)
                         {
-                            Draw draw = new()
+                            var randomNumber = random.Next(teams.Items.Count);
+                            var teamToSelect = teams.Items[randomNumber];
+
+                            var isSelectedTeamUniqueInSelectedGroup = await _teamsService.GetAsync(predicate: p => p.GroupId == group.Id && p.CountryId == teamToSelect.CountryId);
+                            if (isSelectedTeamUniqueInSelectedGroup == null)
                             {
-                                Picker = request.Picker,
-                                GroupId = group.Id,
-                                TeamId = teamToSelect.Id
-                            };
+                                Draw draw = new()
+                                {
+                                    Picker = request.Picker,
+                                    GroupId = group.Id,
+                                    TeamId = teamToSelect.Id
+                                };
 
-                            teamToSelect.GroupId = group.Id;
-                            isTeamSelected=true;
-                            await _teamsService.UpdateAsync(teamToSelect);
-                            
-                            await _drawRepository.AddAsync(draw);
+                                teamToSelect.GroupId = group.Id;
+                                isTeamSelected = true;
+                                await _teamsService.UpdateAsync(teamToSelect);
+
+                                await _drawRepository.AddAsync(draw);
+
+                                teams.Items.Remove(teamToSelect);
+                            }
+
+                            counter++;
+                            if (counter == 33) { break; }
                         }
-
-                        counter++;
-                        if (counter == 11) { break; }
                     }
                 }
 
