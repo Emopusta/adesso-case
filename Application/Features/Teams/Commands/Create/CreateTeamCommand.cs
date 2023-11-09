@@ -10,7 +10,7 @@ public class CreateTeamCommand : IRequest<CreatedTeamResponse>
 {
     public string Name { get; set; }
     public Guid CountryId { get; set; }
-    public Guid GroupId { get; set; }
+    public Guid? GroupId { get; set; }
 
     public class CreateTeamCommandHandler : IRequestHandler<CreateTeamCommand, CreatedTeamResponse>
     {

@@ -8,6 +8,5 @@ public class CreateTeamCommandValidator : AbstractValidator<CreateTeamCommand>
     {
         RuleFor(c => c.Name).NotEmpty();
         RuleFor(c => c.CountryId).NotEmpty();
-        RuleFor(c => c.GroupId).NotEmpty();
     }
 }
