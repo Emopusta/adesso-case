@@ -6,7 +6,6 @@ namespace Application.Features.Groups.Commands.CreateGroups
     {
         public CreateGroupsCommandValidator()
         {
-            RuleFor(c => c.NumberOfGroups).Equal(4).Equal(8);
             RuleFor(c => c.MatchName).NotEmpty();
         }
     }

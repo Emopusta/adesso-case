@@ -35,8 +35,10 @@ public class GroupBusinessRules : BaseBusinessRules
     public Task NumberOfGroupsMustFourOrEight(int nog)
     {
 
-        if (nog != 4 || nog != 8)
+        if (nog != 4 && nog != 8)
+        {
             throw new BusinessException("Grup sayýsý 4 veya 8 olmalýdýr.");
+        }
         return Task.CompletedTask;
     }
 }
