@@ -6,20 +6,20 @@ namespace Domain.Entities
     {
         public string Name { get; set; }
         public Guid CountryId { get; set; }
-        public Guid GroupId { get; set; }
+        public Guid? GroupId { get; set; }
         public virtual Group Group { get; set; }
 
         public Team()
         {
         }
 
-        public Team(Guid id,string name, Guid countryId, Guid groupId, Group group)
+        public Team(Guid id,string name, Guid countryId, Guid groupId)
         {
             Id = id;
             Name = name;
             CountryId = countryId;
             GroupId = groupId;
-            Group = group;
+ 
         }
     }
 }
