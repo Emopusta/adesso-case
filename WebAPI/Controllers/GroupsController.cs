@@ -2,6 +2,7 @@ using Application.Features.Groups.Commands.Create;
 using Application.Features.Groups.Commands.CreateGroups;
 using Application.Features.Groups.Commands.Delete;
 using Application.Features.Groups.Commands.Update;
+using Application.Features.Groups.Queries.GetAllGroupsWithTeams;
 using Application.Features.Groups.Queries.GetById;
 using Application.Features.Groups.Queries.GetList;
 using Core.Application.Requests;
@@ -58,6 +59,12 @@ public class GroupsController : BaseController
     {
         GetListGroupQuery getListGroupQuery = new() { PageRequest = pageRequest };
         GetListResponse<GetListGroupListItemDto> response = await Mediator.Send(getListGroupQuery);
+        return Ok(response);
+    }
+    [HttpGet("getAllWithTeams")]
+    public async Task<IActionResult> GetListWithTeams([FromQuery] GetAllGroupsWithTeamsQuery getAllGroupsWithTeamsQuery)
+    {
+        List<GetAllGroupsWithTeamsDto> response = await Mediator.Send(getAllGroupsWithTeamsQuery);
         return Ok(response);
     }
 }
