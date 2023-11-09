@@ -1,6 +1,8 @@
+using Application.Features.Teams.Commands.CleanTeamsGroups;
 using Application.Features.Teams.Commands.Create;
 using Application.Features.Teams.Commands.Delete;
 using Application.Features.Teams.Commands.Update;
+using Application.Features.Teams.Queries.GetAllSeparatedByGroupId;
 using Application.Features.Teams.Queries.GetById;
 using Application.Features.Teams.Queries.GetList;
 using Core.Application.Requests;
@@ -28,6 +30,13 @@ public class TeamsController : BaseController
 
         return Ok(response);
     }
+    [HttpPut("ungroup")]
+    public async Task<IActionResult> UngroupTeams([FromBody] CleanTeamsGroupsCommand cleanTeamsGroupsCommand)
+    {
+        CleanTeamsGroupsResponse response = await Mediator.Send(cleanTeamsGroupsCommand);
+
+        return Ok(response);
+    }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
@@ -49,6 +58,13 @@ public class TeamsController : BaseController
     {
         GetListTeamQuery getListTeamQuery = new() { PageRequest = pageRequest };
         GetListResponse<GetListTeamListItemDto> response = await Mediator.Send(getListTeamQuery);
+        return Ok(response);
+    }
+
+    [HttpGet("getDistictGroupped")]
+    public async Task<IActionResult> GetAllDistinct([FromQuery] GetAllSeparatedByGroupIdQuery getAllSeparatedByGroupIdQuery)
+    {
+        GetListResponse<GetAllSeparatedByGroupIdDto> response = await Mediator.Send(getAllSeparatedByGroupIdQuery);
         return Ok(response);
     }
 }
