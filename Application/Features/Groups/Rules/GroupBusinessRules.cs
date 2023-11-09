@@ -31,4 +31,12 @@ public class GroupBusinessRules : BaseBusinessRules
         );
         await GroupShouldExistWhenSelected(group);
     }
+
+    public Task NumberOfGroupsMustFourOrEight(int nog)
+    {
+
+        if (nog != 4 || nog != 8)
+            throw new BusinessException("Grup sayýsý 4 veya 8 olmalýdýr.");
+        return Task.CompletedTask;
+    }
 }
