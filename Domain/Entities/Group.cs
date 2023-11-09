@@ -15,5 +15,5 @@ public class Group : Entity<Guid>
         Id = id;
         MatchName = matchName;
         Name = name;
-    }
+    }   
 }

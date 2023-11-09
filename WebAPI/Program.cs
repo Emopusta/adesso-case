@@ -20,6 +20,7 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API Name", Version = "v1" });
 });
 
+
 // Rest of your service registrations...
 
 WebApplication app = builder.Build();

@@ -61,8 +61,8 @@ public class TeamsController : BaseController
         return Ok(response);
     }
 
-    [HttpGet("getDistictGroupped")]
-    public async Task<IActionResult> GetAllDistinct([FromQuery] GetAllSeparatedByGroupIdQuery getAllSeparatedByGroupIdQuery)
+    [HttpGet("getDistinctGroupped")]
+    public async Task<IActionResult> GetAllDistinct([FromQuery] GetDistinctGrouppedQuery getAllSeparatedByGroupIdQuery)
     {
         GetListResponse<GetAllSeparatedByGroupIdDto> response = await Mediator.Send(getAllSeparatedByGroupIdQuery);
         return Ok(response);
