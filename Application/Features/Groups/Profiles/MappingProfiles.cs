@@ -8,6 +8,8 @@ using Core.Application.Responses;
 using Domain.Entities;
 using Core.Persistence.Paging;
 using Application.Features.Groups.Commands.CreateGroups;
+using Application.Features.Groups.Queries.GetAllGroupsWithTeams;
+using System.Collections.Generic;
 
 namespace Application.Features.Groups.Profiles;
 
@@ -29,5 +31,9 @@ public class MappingProfiles : Profile
         CreateMap<Group, GetByIdGroupResponse>().ReverseMap();
         CreateMap<Group, GetListGroupListItemDto>().ReverseMap();
         CreateMap<IPaginate<Group>, GetListResponse<GetListGroupListItemDto>>().ReverseMap();
+
+        CreateMap<Group, GetAllGroupsWithTeamsDto>().ForMember(dest => dest.Teams, opt => opt.MapFrom(src => src.Teams));
+        CreateMap<IPaginate<Group>, GetListResponse<GetAllGroupsWithTeamsDto>>().ReverseMap();
+
     }
 }
