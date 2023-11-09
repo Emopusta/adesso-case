@@ -30,11 +30,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(opt =>
     {
-        opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API Name v1");
+        opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API Name");
         opt.DocExpansion(DocExpansion.None);
     });
 }
 
-// Rest of your pipeline configuration...
+
+app.MapControllers();
+
+const string webApiConfigurationSection = "WebAPIConfiguration";
+WebApiConfiguration webApiConfiguration =
+    app.Configuration.GetSection(webApiConfigurationSection).Get<WebApiConfiguration>()
+    ?? throw new InvalidOperationException($"\"{webApiConfigurationSection}\" section cannot found in configuration.");
+app.UseCors(opt => opt.WithOrigins(webApiConfiguration.AllowedOrigins).AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 
 app.Run();
